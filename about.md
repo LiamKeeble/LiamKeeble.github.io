@@ -1,4 +1,6 @@
-
+layout: page
+title: "About me"
+permaline: /about/
 
 # About
 
