@@ -78,10 +78,20 @@ font-size: 20px;
 <h1>Liam Keeble</h1>
 
 
-<h2> The powR package  </h2>
+<h2> The powR package: 22.03.2021  </h2>
 
 
-<p> I developed the <a href="https://github.com/LiamKeeble/powR">powR</a> package from bundles of code that I found myself using repeatedly. </p>
+<p> I developed the <a href="https://github.com/LiamKeeble/powR">powR</a> package from bundles of code that I found myself using repeatedly. Although there are other packages you can use to calculate the power of a study, and although data simulation is relatively easy in a language like R, I found that many packages did not allow me to conduct power analysis for analyses using linear and generalised linear models. Furthermore, making procedures such as data simulation, model simulation and power analysis slightly easier, I hope that powR might be used to ease new users of R into data and model simulation (but this is a topic for a later post). </p>
+
+<p>
+Here I want to discuss why I believe it was necessary to create powR for the scientific community. powR is a package that makes model and power simulation easy. From my own personal experience, these are still practices that many scientists are reluctant to take up, and this is primarily because it is difficult to do in any rigorous fashion using point and click programs, yet many believe that R is a difficult language to learn. However, if we really want to combat modern scientific issues, such as replication crises, then easy model and power analyses are necessary to make this process an accessible one for all scientists.
+</p>
+
+<p>
+To a beginner, simulations of statistical power can look daunting. Although I implore people to, once they are comfortable with the simplified functions of powR, simulate their own data using base R code, if we are to make power analysis the norm in research then it must be made easier. Even if eventually all scientists end up using base R functions to estimate power (which they eventually shoud), providing a bridge between doing no power analysis, and complex power analysis in base R, will allow the norm to spread more easily through the scientific community. 
+</p>
+
+<p>powR deals with this issue by making it simple to simulate an experimental dataset with limited knowledge about the study. All you need to know to simulate data, models, power and precision of a study is the sample size and the expected effect size. powR contains several different kinds of function designed to make both continuous and binomial variables easily simulated, models easily simulated, and power easily simulated dependent upon the kind of model you wish to use to analyse data. I am also working on adding random effects variables to data,model and power simulations, and including a specific function for precision analysis. </p>
 
 
 </body>
