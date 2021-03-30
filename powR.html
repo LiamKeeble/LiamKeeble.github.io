@@ -68,6 +68,14 @@ font-size: 20px;
 color:white;
 }
 
+code{
+font-family: Consolas,"courier new";
+color: yellow;
+background-color: grey;
+padding: 2px;
+font-size: 105%;
+}
+
 footer{
 font-family: verdana;
 font-size:10px;
@@ -77,27 +85,70 @@ color:white;
 </style>
 </head>
 
-<title>Research</title>
+<title>Understanding p-values</title>
 
 <body>
 
 <div class="topnav">
 	<a href="index">Home</a>
-	<a class="active" href="about">Research</a>
+	<a href="about">Research</a>
 	<a href="software">Software</a>
 	<a href="blog">News</a>
-  <a href="powR">Learning about p-values</a>
+  	<a class="active" href="powR">Understanding p-values</a>
 </div>
 
 
 
 <h1>Liam Keeble</h1>
 
+
+
 <hr>
 
 <h2>Learning about p-values with powR</h2>
-
 <hr>
+
+<h2>Introduction</h2>
+
+<p>This page will use the R package powR to illustrate where p-values are useful,and illustrate the function of power analysis.
+</p>
+
+<p>
+P-values are a confusing statistic, and in modern science they play a large part in the daily statistical rituals that have developed. Unfortunately, a misunderstanding, over reliance and overuse of these statistics has at least partly led to replication crises in multiple scientific fields.
+</p>
+
+<p>
+However, I believe that, although they are used far too often, there are certain scenarios where p-values are useful. For example, with a well designed experiment where the design is based upon a sound power analysis, a p-value (reported alongside an effect size) can provide a good measure of the reliability of the effect size found.
+</p>
+
+<p>
+I have developed the <code>powR</code> R package to aid the understanding of p-values and power analysis. To install, make sure the <code>devtools, ggplot2, lme4, metafor</code> R packages are installed and run the code <code>install_github("LiamKeeble/powR")</code>.
+</p>
+
+<h2>The variability of p-values</h2>
+<p>
+P-values can be a highly variable statistic. Lets run some simulations to see how variable.
+</p>
+
+<p>The code <code>binGlmP(50,0.7)</code> runs a generalised linear model on a dataset with a sample size of 50, two experimental conditions as a predictor variable and a binomial outcome variable. The 0.8 argument in the function indicates the probability of success of the experimental group, whilst the control group probability of success is automatically set at 0.5.
+</p>
+
+<p>On the first run the p-value returned is 0.09,almost a significant result! However, if we run the exact same code 9 more times, the function returns the p-values: 0.77,0.0005,1,0.02,0.08,0.11,0.03,0.15,0.12. Notice that the values range all the way from 0.0005 to 1. 3 out of the total 10 values return significant results, meaning that there is a 30% chance that an individual running analysis on this data has a 30% of getting a significant p-value. However, this is not a high probability. This means the study is underpowered. This 30% value is actually a measurement of statistical power, which is the chance of getting a significant p-value if analysis was rerun many times. We only ran the analysis above 10 times, and more iterations of the analysis would be a better measure of power. However, this is a good demonstration of what power is, and shows the chances of getting a significant p-value when really the effect is not significant.
+</p>
+
+<h2>Why power analysis must be done apriori</h2>
+
+<p>
+It is important to conduct power analysis prior to data collection in a study. It should form the study design itself, and should not be conducted as part of the study itself. If it was conducted ever time a new participant was added to the study, then scientists could just keep adding participants and rerunning their analyses until they got a significant result. However, this is p-hacking, and should be avoided. The significance of the effect may purely be an artifact of a high sample size. Both sample size and effect size determine statistical power. When a sample size is incredibly high, even the smallest effect is likely to be significant. However, it is primarily the effect size that we are interested in, and so we should decide on sample sizes based purely on the sample size necessary to detect the effect size of interest.
+</p>
+
+<p>To demonstrate how sample size effects significance, lets take a look at some code. Running the code <code>binGlmP(1000,0.7)</code> we find that the p-value returned is much lower than 0.000001. However, if we run the same code but using a much smaller sample size, we find that the p-value returned is 0.5. A much higher value. </p>
+
+<p>powR can also be used to simulate power. Lets take a look at how the statistical power of an analysis changes with sample size. Running the code <code>powerBinGlm(1000,0.7,100)</code>, which simulates 100 iterations of a binomial generalised linear model with probability of success for the experimental group set at 0.7 and a sample size of 1000, returns a value of statistical power of 1, full power. Running the same code but with a much smaller sample size <code>powerBinGlm(10,0.7,100)</code> returns a power value of 0, no power. To put things in perspective, a sample size of 200 returns a power value of 0.86. This a high sample size for many disciplines, but is still necessary for detecting a small effect such as a difference in success between experimental groups of 0.2, as we have been using. However, it is not unusual for studies to attempt to detect sample sizes that are small, and there is a risk that some scientists under estimate the size of effect they are attempting to detect when assessing the statistical power of their studies.   
+</p>
+
+
+
 
 <footer>
 Author: Liam Keeble
