@@ -148,6 +148,21 @@ It is important to conduct power analysis prior to data collection in a study. I
 </p>
 
 
+
+<h2>Precision</h2>
+
+<p>
+Another way of assessing how appropriate and reliable your chosen statistical model is, is by assessing the precision of the potential estimates that could be returned from that model. We measure precision using the margin of error of an estimate returned by a model. The margin of error is the length of one arm of an estimate's confidence interval. This measure provides us with much more information than a p-value, and is usually easier to interpret. This is largely due to the fact that there is no arbitrary threshold at which point a mergin of error is really deemed important, in the way that a p-value of less than 0.05 is deemed 'significant'. 
+</p>
+
+<p>
+Let's simulate some values using the code <code>lmME(60,0.3)</code> ten times returns ten margins of error for a basic linear model with a binomial categorical predictor and a continuous outcome variable. The margins of error returned are 0.52,0.58,0.6,0.54,0.50,0.46,0.43,0.52,0.47 and 0.47 again. Now, it is already clear what this means: it means that when we finally run our data through our model, if, as expected, the effect size in the data is around 0.3, then we can expect the true effect to be somewhere between 0.5 above or below that effect size found in the data. Now, it is important to note that, because our sample is not all that large, and because we expect that effect size to be small, then it is not surprising that our margins of error are quite large. Let's take the mean of 100 iterations of the same model simulation, so we can play around with a more conrete example.
+</p>
+
+<p>
+Running the code <code>precisionlm(60,0.3)</code> runs the above simulation 100 times, and finds a mean margin of error across simulations of 0.52. Now lets see what happens when we run the same code but input a much larger sample <code>precisionlm(120,0.3)</code>. This code returns a mean margin of error of 0.36, a much smaller, and more precise measure of variance around our expected effect size. Now lets see how much the precision changes when we make our expected effect size larger <code>precisionlm(120,0.8)</code>. This code also returns a mean margin of error of 0.36 (the value is smaller by a numeber of 1000ths). Not much of a difference there. So when it comes to precision, sample size means a lot. But, what is great about this measure, is that we can assess how variable the real estimate will be around the effect found in our data, and we can interpret this number fairly sensibly because it is usually quite intuitive, or at least much more intuitive than a p-value.
+</p>
+
 <hr>
 
 <footer>
